@@ -191,7 +191,7 @@ abstract class NzWpOptionsPageAbstract
             $vars = get_object_vars($first);
             $keys = array_keys($vars);
         } else if (is_string($first)) {
-            $keys = '';
+            return;
         } else {
 
 
