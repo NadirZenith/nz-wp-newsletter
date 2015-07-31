@@ -182,7 +182,7 @@ abstract class NzWpOptionsPageAbstract
         //sub menu
     }
 
-    private function _table_header($items, $customs = [])
+     private function _table_header($items, $customs = [])
     {
 
         $first = reset($items);
@@ -190,17 +190,19 @@ abstract class NzWpOptionsPageAbstract
 
             $vars = get_object_vars($first);
             $keys = array_keys($vars);
+        } else if (is_string($first)) {
+            $keys = '';
         } else {
+
 
             $keys = (isset($items[0])) ?
                 array_keys($items[0]) : array_keys($items);
         }
         ?>
         <tr>
-            
+
             <?php
-            /*d($keys);*/
-            $keys = (is_array($keys))? $keys : array($keys);
+            $keys = (is_array($keys)) ? $keys : array($keys);
             $keys = array_merge(array_keys($customs), $keys);
             foreach ($keys as $key) {
                 ?>
