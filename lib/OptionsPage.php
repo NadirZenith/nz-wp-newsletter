@@ -12,7 +12,7 @@ class OptionsPage extends NzWpOptionsPageAbstract implements NzWpOptionsPageInte
     public function mainPage()
     {
         ?>
-        <p>mainPage</p>
+        <h3>NzWpNewsletter Options Page</h3>
         <?php
     }
 
@@ -27,12 +27,20 @@ class OptionsPage extends NzWpOptionsPageAbstract implements NzWpOptionsPageInte
     {
         $this->mc = $mc;
 
-        try {
-            $r = $this->mc->call('/helper/ping', []);
-            $this->valid_api = isset($r['msg']);
-        } catch (Exception $ex) {
-            $this->valid_api = false;
+        if ($this->mc) {
+
+            try {
+                $r = $this->mc->call('/helper/ping', []);
+                $this->valid_api = isset($r['msg']);
+                return true;
+            } catch (Exception $ex) {
+                $this->valid_api = false;
+                return false;
+            }
         }
+
+        $this->valid_api = false;
+        return false;
     }
 
     protected function settings()
@@ -256,7 +264,7 @@ class OptionsPage extends NzWpOptionsPageAbstract implements NzWpOptionsPageInte
         $params = [
             'types' => [
                 'user' => true,
-             'gallery' => true 
+                'gallery' => true
             ]
         ];
         $tpls = $this->api('templates/list', $params);
@@ -284,11 +292,11 @@ class OptionsPage extends NzWpOptionsPageAbstract implements NzWpOptionsPageInte
                     var imgs = jQuery('.img-preview');
                     jQuery.each(imgs, function () {
                         var img = jQuery(this);
-                       var src = this.dataset.src;
-                       this.src = decodeURIComponent(src);
+                        var src = this.dataset.src;
+                        this.src = decodeURIComponent(src);
                     });
                 });
-               
+
             </script>
             <?php
         }
@@ -299,7 +307,7 @@ class OptionsPage extends NzWpOptionsPageAbstract implements NzWpOptionsPageInte
         $template_id = $_GET['id'];
 
         $info = $this->api('templates/info', ['template_id' => $template_id]);
-         d($info); 
+        d($info);
         if (!empty($info['default_content'])) {
 
             $this->buildTable($info['default_content'], 'Template info');
