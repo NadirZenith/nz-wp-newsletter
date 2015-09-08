@@ -5,7 +5,7 @@ class NzWpNewsletterWizard
 
     function __construct()
     {
-        add_action('plugins_loaded', array($this, 'update_db_check'));
+        /*add_action('plugins_loaded', array($this, 'update_db_check'));*/
         register_activation_hook(__FILE__, array($this, 'install'));
         /* register_deactivation_hook(__FILE__, array($this, 'deactivate')); */
         register_uninstall_hook(__FILE__, array($this, 'uninstall'));
